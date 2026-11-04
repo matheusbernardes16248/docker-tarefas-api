@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    container_name: tarefas-api
+    ports:
+      - "3000:3000"        
+    environment:
+      PORT: 3000
+      DATA_DIR: /data
+    volumes:
+      - tarefas-data:/data 
+    restart: unless-stopped
+
+volumes:
+  tarefas-data:
