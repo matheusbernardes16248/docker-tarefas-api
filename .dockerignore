@@ -2,6 +2,9 @@ node_modules
 data
 .git
 .gitignore
+.vs
+*.log
+.env
 README.md
 docker-compose.yml
 Dockerfile

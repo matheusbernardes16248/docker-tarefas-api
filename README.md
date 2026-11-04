@@ -49,9 +49,25 @@ curl -X POST http://localhost:3000/tarefas \
 # Listar tarefas
 curl http://localhost:3000/tarefas
 
+# Atualizar uma tarefa / marcar como concluída (troque 123 pelo id)
+curl -X PUT http://localhost:3000/tarefas/123 \
+  -H "Content-Type: application/json" \
+  -d '{"concluida":true}'
+
 # Remover uma tarefa (troque 123 pelo id retornado)
 curl -X DELETE http://localhost:3000/tarefas/123
 ```
+
+### Rotas disponíveis
+
+| Método | Rota             | Descrição                              |
+| ------ | ---------------- | -------------------------------------- |
+| GET    | `/`              | Status da API e lista de rotas         |
+| GET    | `/health`        | Health check (usado pelo Docker)       |
+| GET    | `/tarefas`       | Lista todas as tarefas                 |
+| POST   | `/tarefas`       | Cria uma tarefa (`titulo`)             |
+| PUT    | `/tarefas/:id`   | Atualiza `titulo` e/ou `concluida`     |
+| DELETE | `/tarefas/:id`   | Remove uma tarefa                      |
 
 > No PowerShell, use `curl.exe` (ou `Invoke-RestMethod`) em vez de `curl`.
 

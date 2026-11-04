@@ -1,29 +1,24 @@
-# Imagem base leve, com Node.js 20
 FROM node:20-alpine
 
-# Pasta de trabalho dentro do container
-WORKDIR /app
+LABEL org.opencontainers.image.title="docker-tarefas-api" \
+      org.opencontainers.image.description="API de tarefas em Node.js para praticar Docker" \
+      org.opencontainers.image.licenses="MIT"
 
-# Copia primeiro o package.json (aproveita o cache de camadas do Docker)
-COPY package.json ./
-
-# Copia o restante do código
-COPY server.js ./
-
-# Variáveis de ambiente padrão
-ENV PORT=3000 \
+ENV NODE_ENV=production \
+    PORT=3000 \
     DATA_DIR=/data
 
-# Cria a pasta de dados e usa um usuário sem privilégios de root (boa prática de segurança)
+WORKDIR /app
+
+COPY package.json ./
+COPY server.js ./
+
 RUN mkdir -p /data && chown -R node:node /data /app
 USER node
 
-# Documenta a porta usada pela aplicação
 EXPOSE 3000
 
-# Verifica se a aplicação está saudável
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget -qO- http://localhost:3000/health || exit 1
 
-# Comando que inicia a aplicação
 CMD ["node", "server.js"]
