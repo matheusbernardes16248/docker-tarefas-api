@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    container_name: tarefas-api
+    ports:
+      - "3000:3000"        # porta_do_seu_pc:porta_do_container
+    environment:
+      PORT: 3000
+      DATA_DIR: /data
+    volumes:
+      - tarefas-data:/data # os dados sobrevivem mesmo se o container for removido
+    restart: unless-stopped
+
+volumes:
+  tarefas-data:

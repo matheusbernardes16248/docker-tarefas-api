@@ -1,0 +1,10 @@
+{
+  "name": "docker-tarefas-api",
+  "version": "1.0.0",
+  "description": "API de tarefas simples para praticar Docker e Docker Compose",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}
